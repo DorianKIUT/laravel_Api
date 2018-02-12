@@ -25,17 +25,19 @@ class testTodos extends Controller
     	return Todos::find($todo->id);
 
     }
-    public function putTodos(Request $request, Todos $todo)
+    public function putTodos(Request $request, Todos $todo, $id)
     {
+        $todo = Todos::find($id);
     	$todo->label = $request->label;
     	$todo->isDone = $request->isDone;
     	$todo->save();
     	return $todo->fresh();
     }
-    public function delTodos(Request $request, Todos $todo)
+    public function delTodos(Request $request, Todos $todo, $id)
     {
     	
-  		$todo = Todos::destroy($todo->id);
+		$todo = Todos::find($id);
+        $todo->delete($todo->id);
 
     }
 }
